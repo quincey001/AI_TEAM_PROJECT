@@ -9,7 +9,7 @@ To solve sudoku puzzles using seach algorithms, go to SudokuSearchAgent director
 python main.py agent puzzle
 ```
 
-replace agent with dfs to use DFS algorithm and with bfs to use BFS algorithm.
+replace **agent** with **dfs** to use DFS algorithm and with **bfs** to use BFS algorithm.
 replace puzzle with the name of the puzzles exist in samples folder.
 
 for example, the below command will run dfs agent for puzzle number 1:
