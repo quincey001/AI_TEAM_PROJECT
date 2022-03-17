@@ -12,8 +12,8 @@ python main.py agent puzzle
 replace agent with dfs to use DFS algorithm and with bfs to use BFS algorithm.
 replace puzzle with the name of the puzzles exist in samples folder.
 
-for example, the below command will run dfs agent for puzzle numer 1:
+for example, the below command will run dfs agent for puzzle number 1:
 
 ```bash
-python main.py agent puzzle
+python main.py dfs 1
 ```
