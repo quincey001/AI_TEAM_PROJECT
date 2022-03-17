@@ -14,4 +14,6 @@ replace puzzle with the name of the puzzles exist in samples folder.
 
 for example, the below command will run dfs agent for puzzle numer 1:
 
+```bash
 python main.py agent puzzle
+```
