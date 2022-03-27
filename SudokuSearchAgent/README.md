@@ -16,4 +16,8 @@ for example, the below command will run dfs agent for puzzle number 1:
 
 ```bash
 python main.py dfs 1
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> e292a93fb0851a7e16261e065d4fc3d2ab99d8f7
