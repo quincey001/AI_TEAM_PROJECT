@@ -20,7 +20,7 @@ class CSP():
         # A list of strings from "1" to "9" is created
 
         self.table = table
-        print(self.table)
+
 
     def create_box_list(self):
         for i in range(3):
@@ -66,26 +66,21 @@ class CSP():
         self.prob.solve()
         self.printStatus()
         self.print_and_write()
+        #print(self.__str__())
 
     def printStatus(self):
         #The status of the solution is printed to the screen
         print("Status:", LpStatus[self.prob.status])
 
     def print_and_write(self):
-        sudokuout = open('sudokuout.txt','w')
+        sudokuout = ""
         # The solution is written to the sudokuout.txt file 
         for r in self.Rows:
-            if r == "1" or r == "4" or r == "7":
-                sudokuout.write("+-------+-------+-------+\n")
             for c in self.Cols:
                 for v in self.Vals:
                     if value(self.choices[v][r][c])==1:             
-                        if c == "1" or c == "4" or c =="7":
-                            sudokuout.write("| ") 
-                        sudokuout.write(v + " ")   
+                        sudokuout = sudokuout + (str(v) + " ")   
                         if c == "9":
-                            sudokuout.write("|\n")
-        sudokuout.write("+-------+-------+-------+")                    
-        sudokuout.close()
-
+                            sudokuout = sudokuout + '\n'                
+        print(sudokuout)
 
