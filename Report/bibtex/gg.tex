@@ -1,0 +1,288 @@
+\documentclass[10pt]{article}
+
+\usepackage{algorithmic}
+\usepackage{algorithm}
+
+
+\begin{document}
+
+\title{Examples of formatted algorithms}
+\author{Bo Waggoner, Colorado-Boulder CSCI 5454}
+\date{Fall 2020}
+\maketitle
+
+\section{Lecture 2: Depth-First Search}
+
+\begin{algorithm}
+\caption{DFS-Reachability}
+\begin{algorithmic}[1]
+  \STATE Input: Graph $G = (V,E)$, vertices $s,t$
+  \STATE Define array \texttt{is\_marked} of length $n$
+  \STATE Set \texttt{is\_marked}$[v] = $ False for $v = 1,\dots,n$
+  \STATE Call DFS-explore$(s)$
+  \STATE Return \texttt{is\_marked}$[t]$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\floatname{algorithm}{Subroutine}
+\caption{DFS-explore(u)}
+\begin{algorithmic}[1]
+  \STATE Set \texttt{is\_marked}$[u] = $ True
+  \FOR{each out-neighbor $v$ of $u$}
+    \IF{\texttt{is\_marked}$[v] == $ False}
+      \STATE DFS-explore$(v)$
+    \ENDIF
+  \ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+\caption{DFS-Topo}
+\begin{algorithmic}[1]
+  \STATE Input: Graph $G = (V,E)$, vertices $s,t$
+  \STATE Define array is\_marked of length $n$
+  \STATE Set is\_marked$[v] = $ False for $v = 1,\dots,n$
+  \STATE Create list $A$, initially empty
+  \FOR{each vertex $v$}
+    \IF{is\_marked$[v] == $ False}
+      \STATE DFS-explore-2$(v)$
+     \ENDIF
+  \ENDFOR
+  \STATE Return $A$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\floatname{algorithm}{Subroutine}
+\caption{DFS-explore-2(v)}
+\begin{algorithmic}[1]
+  \STATE Set is\_marked$[v] = $ True
+  \FOR{each neighbor $w$ of $v$}
+    \IF{is\_marked$[w] == $ False}
+      \STATE DFS-explore-2$(w)$
+    \ENDIF
+  \ENDFOR
+  \STATE add $v$ to beginning of list $A$
+\end{algorithmic}
+\end{algorithm}
+
+
+\break
+\section{Lecture 3: BFS, Shortest Paths}
+
+\begin{algorithm}
+\caption{BFS-Reachability}
+\label{alg:bfs-reach}
+\begin{algorithmic}[1]
+  \STATE Input: Directed graph $G = (V,E)$ as adjacency list, vertices $s,t$
+  \STATE Set \texttt{is\_marked}$[u] = $ False for all $u$
+  \STATE Create queue $Q$
+  \STATE $Q$.append$(s)$
+  \STATE Set \texttt{is\_marked}$[s] = $ True
+  \WHILE{$Q$ is not empty}
+    \STATE Let $u = Q$.pop$()$
+    \FOR{each unmarked out-neighbor $v$ of $u$}
+      \STATE $Q$.append$(v)$
+      \STATE Set \texttt{is\_marked}$[v] = $ True
+    \ENDFOR
+  \ENDWHILE
+  \STATE Return is\_marked$[t]$
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+\caption{BFS-Path}
+\begin{algorithmic}[1]
+  \STATE Input: Unweighted directed graph $G = (V,E)$ as an adjacency list, vertices $s,t$
+  \STATE Set \texttt{dist}$[u] = \infty$ for all $u$
+  \STATE Set \texttt{prev}$[u] = $ NULL for all $u$
+  \STATE Create queue $Q$
+  \STATE Set dist$[s] = 0$
+  \STATE $Q$.append$(s)$
+  \WHILE{$Q$.size$() > 0$}
+    \STATE Let $u = $ $Q$.pop()
+    \FOR{each out-neighbor $v$ of $u$}
+      \IF{\texttt{dist}$[v] = \infty$}
+        \STATE Set \texttt{dist}$[v] = $\texttt{dist}$[u] + 1$
+        \STATE Set \texttt{prev}$[v] = u$
+        \STATE $Q$.append$(v)$
+      \ENDIF
+    \ENDFOR
+  \ENDWHILE
+  \STATE Run and return Reconstruct along with \texttt{dist}$[t]$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\floatname{algorithm}{Subroutine}
+\caption{Reconstruct}
+\begin{algorithmic}[1]
+  \STATE Create list \texttt{path}
+  \STATE Let $v = t$
+  \WHILE{\texttt{prev}$[v]$ $\neq$ NULL}
+    \STATE Add $v$ to beginning of \texttt{path}
+    \STATE Set $v = $ \texttt{prev}$[v]$
+  \ENDWHILE
+  \STATE Return \texttt{path}
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+\caption{Dijkstra's Algorithm}
+\begin{algorithmic}[1]
+  \STATE Input: Weighted directed graph $G = (V,E)$ with positive weights $w_{uv}$, vertices $s,t$
+  \STATE Set \texttt{dist}$[v] = \infty$ for all $v$
+  \STATE Set \texttt{dist}$[s] = 0$
+  \STATE Set \texttt{prev}$[v] = $ NULL for all $v$
+  \STATE Create priority queue $Q$ with all vertices and distances
+  \WHILE{Q.size$() > 0$}
+    \STATE Let $u = $ $Q$.popmin()
+    \FOR{each neighbor $v$ of $u$}
+      \STATE Call UpdateDist$(u, v)$
+      \STATE Q.update$(v, $ \texttt{dist}$[v])$  \COMMENT{if $v \not\in Q$, do nothing}
+    \ENDFOR
+  \ENDWHILE
+  \STATE Run and return Reconstruct along with \texttt{dist}$[t]$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\floatname{algorithm}{Subroutine}
+\caption{UpdateDist$(u,v)$}
+\begin{algorithmic}[1]
+  \IF{\texttt{dist}$[v] > $ \texttt{dist}$[u] + w_{uv}$}
+    \STATE Set \texttt{dist}$[v] = $ \texttt{dist}$[u] + w_{uv}$
+    \STATE Set \texttt{prev}$[v] = u$
+  \ENDIF
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+\caption{Bellman-Ford Algorithm}
+\begin{algorithmic}[1]
+  \STATE Input: Weighted directed graph $G = (V,E)$ with weights $w_{uv}$, vertices $s,t$
+  \STATE Set \texttt{dist}$[v] = \infty$ for all $v$
+  \STATE Set \texttt{dist}$[s] = 0$
+  \STATE Set \texttt{prev}$[v] = $ NULL for all $v$
+  \FOR{$n-1$ iterations}
+    \FOR{each edge $(u,v)$}
+      \STATE Call UpdateDist$(u,v)$
+    \ENDFOR
+  \ENDFOR
+  \STATE Run and return Reconstruct along with \texttt{dist}$[t]$
+\end{algorithmic}
+\end{algorithm}
+
+
+\break
+\section{Lecture 4: Dynamic programming}
+
+\begin{algorithm}
+\caption{Longest Increasing Subsequence}
+\label{alg:lis}
+\begin{algorithmic}[1]
+  \STATE Input: List $A$ of integers, length $n$.
+  \STATE Create array $L$ and set $L[1] = 1$.
+  \FOR{$j = 2, \dots, n$}
+    \STATE Set $L[j] = 1$.
+    \FOR{$i =1 , \dots, j-1$}
+      \IF{$A[i] \leq A[j]$ and $L[j] < L[i] + 1$}
+        \STATE Set $L[j] = L[i] + 1$.
+      \ENDIF
+    \ENDFOR
+  \ENDFOR
+  \STATE Return $\max_j L[j]$
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+\caption{LIS-2}
+\label{alg:lis2}
+\begin{algorithmic}[1]
+  \STATE Input: List $A$ of integers, length $n$
+  \STATE Create array $L$ and set $L[1] = 1$.
+  \STATE Create array \texttt{prev} and set \texttt{prev}$[j] = $ NULL for all $j$.
+  \FOR{$j = 2, \dots, n$}
+    \STATE Set $L[j] = 1$.
+    \FOR{$i =1 , \dots, j-1$}
+      \IF{$A[i] \leq A[j]$ and $L[j] < L[i] + 1$}
+        \STATE Set $L[j] = L[i] + 1$.
+        \STATE Set \texttt{prev}$[j] = i$.
+      \ENDIF
+    \ENDFOR
+  \ENDFOR
+  \STATE Let $j^* = \arg\max_j L[j]$.
+  \STATE Return $L[j^*]$ along with Reconstruct-LIS$(j^*)$.
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Reconstruct-LIS$(j^*)$}
+\begin{algorithmic}[1]
+  \STATE Create empty list $S$.
+  \STATE Add $j^*$ to $S$.
+  \STATE Let $j = j^*$.
+  \WHILE{\texttt{prev}$[j]$ is not NULL}
+    \STATE Let $j = $\texttt{prev}$[j]$.
+    \STATE Add $j$ to the beginning of $S$.
+  \ENDWHILE
+  \STATE Return $S$.
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\floatname{algorithm}{Subroutine}
+\caption{EditDistRecurse}
+\label{sub:editdistrecur}
+\begin{algorithmic}[1]
+  \STATE Input: $i, j$
+  \IF{we have already saved the answer to $E[i,j]$}
+    \STATE return $E[i,j]$
+  \ELSIF{$i = 0$}
+    \STATE Save the answer $E[i,j] = j$
+  \ELSIF{$j = 0$}
+    \STATE Save the answer $E[i,j] = i$
+  \ELSE
+    \STATE Let $a = $EditDistRecurse$(i-1,j) + 1$
+    \STATE Let $b = $EditDistRecurse$(i,j-1) + 1$
+    \STATE Let $c = $EditDistRecurse$(i-1,j-1) + 1_{X[i]\neq Y[j]}$
+    \STATE Save the answer $E[i,j] = \min\{a,b,c\}$.
+  \ENDIF
+  \STATE Return $E[i,j]$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{EditDist2}
+\label{alg:editdist2}
+\begin{algorithmic}[1]
+  \STATE Input: strings $X,Y$
+  \STATE Return EditDistRecurse$(|x|,|y|)$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Floyd-Warshall}
+\begin{algorithmic}[1]
+  \STATE Set $d[u,v,0] = w_{uv}$ if there is an edge $(u,v)$, or $0$ if $u=v$, or else $\infty$
+  \FOR{$k = 1, \dots, n$}
+    \FOR{$u = 1, \dots, n$}
+      \FOR{$v = 1, \dots, n$}
+        \STATE Set $d[u,v,k] = \min\left\{ d[u,v,k-1] ~,~ d[u,k,k-1] + d[k,v,k-1] \right\}$.
+      \ENDFOR
+    \ENDFOR
+  \ENDFOR
+  \STATE Set $D[u,v] = d[u,v,n]$ for all $u,v$
+  \STATE Return $D$
+\end{algorithmic}
+\end{algorithm}
+
+
+
+\end{document}
