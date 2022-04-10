@@ -80,12 +80,12 @@ class Chromosome(object):
         """ swap two values in a row """
 
         r = random.uniform(0, 1.1)
-        while (r > 1):  # Outside [0, 1] boundary - choose another
+        while (r > 1):  # make sure the random number is less than 1
             r = random.uniform(0, 1.1)
-        success = False
+        mute_success = False
         # if random number < mutate rate 0.5, then mutate
         if (r < mutationRate):
-            while (not success):
+            while (not mute_success):
                 #generate random row1[0-8]
                 row1 = random.randint(0, 8)
                 row2 = row1
@@ -94,9 +94,8 @@ class Chromosome(object):
                 while (fromColumn == toColumn):
                     fromColumn = random.randint(0, 8)
                     toColumn = random.randint(0, 8)
-                # only
                 if (given.values[row1][fromColumn] == 0 and given.values[row1][toColumn] == 0):
-                    # ...and that we are not causing a duplicate in the rows' columns.
+                    # if the column is not duplicate and row is not duplicate, block is not duplicate, then swap
                     if (not Population.isColumnDuplicate(self,toColumn, given.values[row1][fromColumn], given)
                             and not Population.isColumnDuplicate(self,fromColumn, given.values[row2][toColumn], given)
                             and not Population.isBlockDuplicate(self,row2, toColumn, given.values[row1][fromColumn], given)
@@ -105,8 +104,8 @@ class Chromosome(object):
                         temp = self.values[row2][toColumn]
                         self.values[row2][toColumn] = self.values[row1][fromColumn]
                         self.values[row1][fromColumn] = temp
-                        success = True
+                        mute_success = True
 
-        return success
+        return mute_success
 
 

@@ -1,10 +1,11 @@
 import numpy
+import psutil
 from Given import Given
 from Population import Population
-from CycleCrossover import CycleCrossover
+from Crossover import CycleCrossover
 from Chromosome import Chromosome
+from SudokuGeneticAlgorithm import profile
 from Tournament import Tournament
-NumDigits = 9
 class Sudoku(object):
     def __init__(self, chromosomeNumber, eliteNumber, generationNumber):
         self.chromosomeNumber = chromosomeNumber
@@ -22,30 +23,32 @@ class Sudoku(object):
         return
 
     def solve(self):
-        mutateNumber = 0  # to count Number of mutations.
-        staleCount = 0  # count number of times generation is staling
-        prevFitness = 0
+        mutateNumber = 0  # mutation number
+        staleCount = 0  # number of staling generation
+        prevFitness = 0  # previous fitness
 
-        # Defining variables used to update the mutationRate
-        phi = 0  # to count number of times when child is better than parent
-        sigma = 1  # used for updating mutation rate
-        mutationRate = 0.5
+        # variables for mutation
+        phi = 0  # number of tiems, child is better than parents
+        sigma = 1  # update mutation rate
+        mutationRate = 0.5 #initial mutation rate
 
         # Generating initial population.
         self.population = Population()
         self.population.generatePopulation(self.chromosomeNumber, self.given)
 
-        # For up to 1500 generations...
+        # Start solving.
         for generation in range(0, self.generationNumber):
             print("Generation %d" % generation)
 
             # Check for a solution.
             bestFitness = 0.0
             bestSolution = self.given
-            # for each generation, traverse all the chromosomes or chromosomes to check for solution
+            # check every chromosome in population
+            #if the fitness == 1, then the chromosome is a solution
+            #if the fitness > bestFitness 0,
             for c in range(0, self.chromosomeNumber):
                 fitness = self.population.chromosomes[c].fitness
-                if (int(fitness) == 1):
+                if (float(fitness) > 0.95):
                     print("Solution found at generation %d!" % generation)
                     print(self.population.chromosomes[c].values)
                     return self.population.chromosomes[c]
@@ -57,10 +60,10 @@ class Sudoku(object):
 
             print("Best fitness: %f" % bestFitness)
 
-            # Create the next population.
+            #next generation
             nextPopulation = []
 
-            # Select elites (the fittest chromosomes) and preserve them for the next generation.
+            #preserve the best fittest chromosmos for next generation
             # 0.6*200=120 elites in new generation
             self.population.sort()
             elites = []
@@ -69,7 +72,6 @@ class Sudoku(object):
                 elite.values = numpy.copy(self.population.chromosomes[e].values)
                 elites.append(elite)
 
-            # Create the rest of the chromosomes. 80 children, so run loop 40 times
             for count in range(self.eliteNumber, self.chromosomeNumber, 2):
                 # Select parents from population via a tournament.
                 t = Tournament()
@@ -83,9 +85,9 @@ class Sudoku(object):
                 # Mutate child1.
                 child1.getFitnessScore()
                 oldFitness = child1.fitness
-                success = child1.mutate(mutationRate, self.given)
+                muate_success = child1.mutate(mutationRate, self.given)
                 child1.getFitnessScore()
-                if (success):
+                if (muate_success):
                     mutateNumber += 1
                     if (child1.fitness > oldFitness):  # Used to calculate the relative success rate of mutations.
                         phi = phi + 1
@@ -93,9 +95,9 @@ class Sudoku(object):
                 # Mutate child2.
                 child2.getFitnessScore()
                 oldFitness = child2.fitness
-                success = child2.mutate(mutationRate, self.given)
+                muate_success = child2.mutate(mutationRate, self.given)
                 child2.getFitnessScore()
-                if (success):
+                if (muate_success):
                     mutateNumber += 1
                     if (child2.fitness > oldFitness):  # Used to calculate the relative success rate of mutations.
                         phi = phi + 1
@@ -112,7 +114,7 @@ class Sudoku(object):
             self.population.chromosomes = nextPopulation
             self.population.updateFitness()
 
-            # Calculate new adaptive mutation rate
+            # Calculate  mutation rate
             # (based on Rechenberg's 1/5 success rule).
             # This is to stop too much mutation as the fitness progresses towards unity.
             if (mutateNumber == 0):
@@ -121,9 +123,9 @@ class Sudoku(object):
                 phi = phi / mutateNumber
 
             if (phi > 0.2):
-                sigma = sigma * 0.998  # sigma decreases, less mutationRate
+                sigma = sigma * 0.998  # sigma higher, less mutationRate
             if (phi < 0.2):
-                sigma = sigma / 0.998  # sigma ichromosomeNumberreases, more mutationRate
+                sigma = sigma / 0.998  # sigma lower, more mutationRate
 
             mutationRate = abs(numpy.random.normal(loc=0.0, scale=sigma, size=None))
             while mutationRate > 1:
@@ -145,7 +147,7 @@ class Sudoku(object):
 
             # Re-generatePopulation the population if 100 generations have passed with the
             # fittest two chromosomes always having the same fitness.
-            if (staleCount >= 100):
+            if (staleCount >= 150):
                 print("The population has gone stale. Re-generatePopulationing...")
                 self.population.generatePopulation(self.chromosomeNumber, self.given)
                 staleCount = 0
@@ -157,7 +159,7 @@ class Sudoku(object):
         print("No solution found.", bestSolution)
         return None
 
-
-s = Sudoku(200, 120, 1500)
-s.load("/Users/congqinyan/TCD LECTURES/semester two/AI/team-project/AI_TEAM_PROJECT/SudokuCSPAgent/samples/1.txt")
-solution = s.solve()
+# puzzle = "/Users/congqinyan/TCD LECTURES/semester two/AI/team-project/AI_TEAM_PROJECT/SudokuGeneticAlgorithm/simple/2.txt"
+# s = Sudoku(200, 140, 1500)
+# s.load(puzzle)
+# solution = s.solve()
