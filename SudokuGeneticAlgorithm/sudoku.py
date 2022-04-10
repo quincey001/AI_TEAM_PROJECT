@@ -1,5 +1,4 @@
 import numpy
-import psutil
 from Given import Given
 from Population import Population
 from Crossover import CycleCrossover
