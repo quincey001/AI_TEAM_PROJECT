@@ -3,11 +3,17 @@
 ## Sudoku Search Agent
 
 The seach agent finds solutions for a given incomplete sudoku puzzle using Depth-first seach and Breadth-first search.
-To solve sudoku puzzles using seach algorithms, go to SudokuSearchAgent directory, and simply run:
+To solve sudoku puzzles using seach algorithms, go to SudokuSearchAgent directory.
+
+## To install the required dependencies, execute the following command 
+
+``` pip install -r requirements.txt```
 
 ```bash
 python main.py agent puzzle
 ```
+
+ ## simply run
 
 replace **agent** with **dfs** to use DFS algorithm and with **bfs** to use BFS algorithm.
 replace puzzle with the name of the puzzles exist in samples folder.
