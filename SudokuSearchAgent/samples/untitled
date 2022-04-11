@@ -1,0 +1,165 @@
+\documentclass{svproc}
+\usepackage{url}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\def\UrlFont{\rmfamily}
+
+\begin{document}
+\mainmatter
+\title{Your Project Report Title Here
+}
+\subtitle{CS7IS2 Project (2019/2020)}
+\author{Rakesh Nair \and Mohammad Eslami \and Misbah Rizaee \and Congqin Yan \and Tapabrata Mukhopadhyay}
+
+\institute{
+\email{ranair@tcd.ie}, \email{meslami@tcd.ie}, \email{rizaeem@tcd.ie}, \email{yanc@tcd.ie}, \email{mukhopat@tcd.ie}}
+\maketitle              % typeset the title of the contribution
+
+
+\begin{abstract}
+Sudoku puzzle is a popular problem in which missing digits are to be placed into a 9x9 grid of squares that are split into 3x3 boxes so that the numbers 1 through 9 appear only once in every row, column, and box. Although every Sudoku puzzle has solution, they involve different levels of hardship. In this paper, we introduce, implement and analyze some of the AI algorithms suitable to solve any given Sudoku puzzles. The results are compared with respect to the time taken by each algorithms.     
+\keywords{Sudoku puzzle, uninformed search, constraint satisfaction, convolutional neural network, genetic algorithms, backtracking algorithm}
+\end{abstract}
+
+
+This document is a guideline for writing the final report for the CS7IS2 module Artificial Intelligence. You should follow its general structure as shown below.
+You should not change its format (font, size, margin, space, etc.). 
+Your report should be between five and ten pages. Report that not comply to the format or exceed the maximum length will be penalised (-5 marks).
+Brevity is desirable in communication, however you should provide all those details necessary for the good understanding of the described methods and algorithms. 
+The report will be graded on the basis of:
+\begin{itemize}
+\item Originality;
+\item Technical soundness;
+\item Organisation;
+\item Clarity of presentation;
+\item Adequacy of bibliography/Results (this last point strongly depends on the type of report)
+\end{itemize}
+
+\begin{description}
+Your report should provide a survey and an experimental comparison of multiple solution approaches to a particular problem. This is a critical review of at least three papers that significantly contributed to advance the state-of-the-art for the problem you are analysing. It should not be a mere summary of the papers. You are expected to conduct an analytical review of the methods under analysis to try to find common aspect and differences, connections between methods, drawbacks and open problems. Unless the faced problem has emerged recently, students should choose their papers by diversifying the range of approaches used to solve the problem. A good guideline could be to choose a paper from a decade or two ago, and a couple of more recent papers. You need to experimentally evaluate approaches in a simulation of a problem, in a range of scenarios, and analyse the pros and cons of each approach. 
+\end{description}
+
+\section{Introduction}
+In this section, we are going to briefly explain the history of Sudoku as well as some other interesting facts about it. Number games and grids like Sudoku have been around for hundreds of years but the modern game, as we know it today was originated by Howard Garns. Howard’s first Sudoku puzzle was published in 1979 by Dell magazines and it was called Number Place but today we know it as Sudoku. The famous Swiss mathematician, Leonhard Eular also wrote about similar concepts but the idea of these types of number games in general dates back ancient china. \\
+From our experience, Sudoku games fall into two categories, they are either so easy which sometimes they become boring or they are too hard and we stop solving them. The motivation behind our research on Sudoku game is to find how well different algorithms can solve any Sudoku puzzles in few seconds. The objectives of our research are to compare and contrast the performance of these algorithms and examine which one is faster. Maybe there are some puzzles which takes minutes to be solved so we are going to discover such cases as well. \\
+First, we would like to explain what the rules of Sudoku are:
+The objective of the Sudoku game is to correctly fill in all the empty squares with the correct numbers. As it was mentioned earlier, the classic Sudoku game involves a grid of 81 squares which are divided into 9 blocks, each block contains 9 squares, and each of the blocks, rows and columns has to contain all the numbers from 1 through 9 within its squares without any duplicates.
+
+
+\section{Related Work}
+\subsection{NOTE}
+In this section you will discuss all possible categories of approaches to solve the problem you are addressing, justifying your choice of the 3 you have selected to evaluate. Also, briefly introduce the approaches you are evaluating with a specific emphasis on differences and similarities to the proposed approach(es).
+
+\subsection{Backtracking}
+Whenever we are doing problems like Sudoku, there are always many ways to approach them. Starting with the backtracking algorithm, this is one of the best algorithms to solve such problems. We have made solving Sudoku problem fantastically simple using this algorithm. \\
+The idea behind backtracking algorithm is very easy to understand. Any time we have a problem that can be solved by a series of decisions, we might make a wrong decision but when we realise that we have made a wrong decision, we can backtrack to the place where we have made a decision and we can try something else. \\
+What was tricky about backtracking is not the concept but figuring out how to implement it in the code and apply it in program. Backtracking is most often associated with recursion but the way backtracking happens in a recursive solution is tough to see and that can make it difficult at first to write recursive backtracking solutions.
+
+\subsection{Genetic Algorithm}
+
+
+\section{Problem Definition and Algorithm}
+
+Sudoku puzzle is a relatively old classic problem. Hence, many approaches have been developed to solve Sudoku. As the focus of this project has been on AI methods, we have tried to utilize some of the classic and interesting AI methods to solve Sudoku. For instance, the solution of a Sudoku puzzle can be found using search algorithms. The more efficient the search algorithm is, the more quickly the solution is found. Sudoku is also recognized as a classic constraint satisfaction problem. The essence of Sudoku problem is based on the constraint that we have to satisfy. These constrains (see section 1). We also apply some relatively new approaches such as Convolutional Neural Network (CNN) and Genetic Algorithm to solve the Sudoku puzzles. 
+
+\subsection{Backtracking}
+Now let’s talk in more details about how we would actually approach Sudoku problem using Backtracking algorithm. Backtracking algorithms attempt to solve a problem one step at a time. If it becomes obvious at any point along the way that the present path will not lead to a solution, it will return to the previous step or backtrack and take an alternative option. The way Backtracking works is very simple and it is kind of similar to Naive algorithm except: 
+\begin{itemize}
+\item We pick empty square.
+\item Then we try all the numbers, we start by trying 1, and then 2 and then 3 and so on, then we look at the row to confirm that each of these numbers is not already present.
+\item As soon as we find a number that works and fits in the square then we move to the next empty square in the same row.
+\item Since we cannot also have the same number in the same column and sub-grid, as soon as we get to a point where the solution cannot be completed, we do backtrack to the last square ad try something else.
+\end{itemize} \\
+This is known as recursive function which is used in backtracking algorithms. A recursive function is one that keeps calling itself until a certain task is completed. It tries to solve a problem by examining all potential solutions until one is identified. If a solution is not discovered each time a path is examined, the algorithm goes back to try another potential way, and so on, until a solution is found or all of the paths have been evaluated. In the next section, I will compare it with other algorithms.
+
+
+\subsection{Uniformed Search Agent}
+Search algorithms can be used to tackle artificial intelligence problems. Uninformed search and informed search with heuristics are two types of search algorithms. Uninformed search is a search method that is able to only differentiate between a target state and a non-goal state and has no knowledge about how distant the goal state might be from the present state []. In other words, uninformed search techniques are strategies which use a tree-traversing algorithm to search the sequence through which an agent could reach to the goal state without using any additional information. Depth-first search (DFS) and Breadth-First search (BFS) are among the uniformed search strategies. The difference is in the data structure by which they queue the nodes of the tree to visit throughout the tree-traversing process.
+In Sudoku, the status of the puzzle are the nodes in the tree. the flow is started by filling an empty cell in a parent puzzle with all possible digits which satisfy the constrains of the position. Then the new puzzles with the new values are returned as the successors nodes of the parent node.
+
+\subsubsection{Depth-first Search} \\
+When a dead-end occurs in any iteration, the Depth First Search (DFS) method traverses a tree in a depth-ward motion and utilizes a stack to remember to acquire the next vertex to start a search [tutorial point dfs].
+The pusudocode in Sudoku context is shown in the snippet below:
+
+\iffalse
+\begin{algorithm}
+\floatname{algorithm}{Subroutine}
+\caption{DFS}
+\begin{algorithmic}[1]
+  \WHILE visted gets Data: G is\_marked$[v] = $ True
+  \FOR{each neighbor $w$ of $v$}
+    \IF{is\_marked$[w] == $ False}
+      \STATE DFS-explore-2$(w)$
+    \ENDIF
+  \ENDFOR
+  \STATE add $v$ to beginning of list $A$
+\end{algorithmic}
+\end{algorithm}
+\fi
+
+\subsubsection{Breadth-first Search} \\
+A Breadth-First Search (BFS) is a tree-traversal technique that uses a queue rather than a stack to traverse the tree. This approach employs horizontal expansions in order to account for all possible outcomes in the Sudoku grid. The queue technique of arraying assures that all nodes are addressed, but it is also time-consuming and inefficient.
+
+
+\subsection{Constraint Satisfaction} \\
+
+\section{Experimental Results}
+\subsection{NOTE}
+This section should provide the details of the evaluation. Specifically:
+\begin{itemize}
+\item Methodology: describe the evaluation criteria, the data used during the evaluation, and the methodology followed to perform the evaluation. 
+\item Results: present the results of the experimental evaluation. Graphical data and tables are two common ways to present the results. Also, a comparison with a baseline should be provided.
+\item Discussion: discuss the implication of the results of the proposed algorithms/models. What are the weakness/strengths of the method(s) compared with the other methods/baseline?
+\end{itemize}
+
+\subsection{Backtracking} 
+Backtracking vs Naive: \\
+Backtracking solves pretty well instantly and it is a very fast algorithm compared to some algorithms such as Naive.  Naive is obviously very slow because it tries every single possible combination of numbers so what I mean by that is, it just tries all the numbers from 1 to 9 and keep doing that for every single square and generate every single possible combination of numbers for the boards until eventually the solution just works. So rather than trying to continue a solution that can never possibly work which we do with the Naive algorithm, with Backtracking we complete one square at a time until eventually we reach a solution that works. This is a lot faster than trying every single possible combination.\\
+
+Backtracking vs Depth First Search: \\
+Backtracking may be thought of as the process of developing and studying a search tree in depth first. It begins with the root node and the path that leads to the leaf node, indicates a potential solution that may be tested. So, as we travel down each path, we're putting a solution to the test. If this solution path proves to be a good option, it is maintained as a backup. To put it another way, after a solution is discovered, the algorithm backtracks and returns a step and examines other path from the prior point to look for other solutions in other tree branches. \\
+
+Backtracking Weaknesses: \\
+Every algorithm design has strengths and weaknesses that are clear, and these weaknesses lead to many algorithm design strategies to handle a specific problem. Some algorithm design methodologies are issue specific, which suggests they are ideally suited for one problem but have drawbacks when applied to another. When it comes to addressing key challenges, the backtracking approach is ineffective. Thrashing is one of Backtracking's most serious issues. The backtracking method misses the true cause of the problem and detects conflicts too late.
+
+\section{Conclusions}
+\subsection{NOTE} 
+Provide a final discussion of the main results and conclusions of the report. Comment on the lesson learnt and possible improvements. A standard and well formatted bibliography of papers cited in the report. For example:
+
+\subsection{Backtracking} 
+The other algorithms such as Naive algorithm would work but the issue with this method is that it is slow. We can think of it as like each square has 9 possibilities. Essentially if we have 9x9 grid, that’s 81 squares with nine possibilities each, so we end up getting an absolutely massive number. Let’s think about how many operations the computer would have to do to generate the set of solutions to this board and also validating all of these as well, therefore this method is not really a good way to approach this so that is why we decided to use Backtracking.
+
+\begin{thebibliography}{6}
+%
+
+\bibitem {smit:wat}
+Smith, T.F., Waterman, M.S.: Identification of common molecular subsequences.
+J. Mol. Biol. 147, 195?197 (1981). \url{doi:10.1016/0022-2836(81)90087-5}
+
+\bibitem {may:ehr:stein}
+May, P., Ehrlich, H.-C., Steinke, T.: ZIB structure prediction pipeline:
+composing a complex biological workflow through web services.
+In: Nagel, W.E., Walter, W.V., Lehner, W. (eds.) Euro-Par 2006.
+LNCS, vol. 4128, pp. 1148?1158. Springer, Heidelberg (2006).
+\url{doi:10.1007/11823285_121}
+
+\bibitem {fost:kes}
+Foster, I., Kesselman, C.: The Grid: Blueprint for a New Computing Infrastructure.
+Morgan Kaufmann, San Francisco (1999)
+
+\bibitem {czaj:fitz}
+Czajkowski, K., Fitzgerald, S., Foster, I., Kesselman, C.: Grid information services
+for distributed resource sharing. In: 10th IEEE International Symposium
+on High Performance Distributed Computing, pp. 181?184. IEEE Press, New York (2001).
+\url{doi: 10.1109/HPDC.2001.945188}
+
+\bibitem {fo:kes:nic:tue}
+Foster, I., Kesselman, C., Nick, J., Tuecke, S.: The physiology of the grid: an open grid services architecture for distributed systems integration. Technical report, Global Grid
+Forum (2002)
+
+\bibitem {onlyurl}
+National Center for Biotechnology Information. \url{http://www.ncbi.nlm.nih.gov}
+
+
+\end{thebibliography}
+\end{document}
