@@ -33,6 +33,7 @@ python main.py dfs 1
 
 To use Backtracking Agent, follow the instruction below. make sure that you are in Backtracking folder: 
 
+### To install the required dependencies, execute the following command:
 ```bash
 pip install -r requirements.txt
 ```
@@ -45,7 +46,7 @@ python main.py
 To use this agent, go to SudokuCNNSolver folder. We have already included the pretrained model `best_weights.hdf5` which can be used to
 solve the different categories of sudoku puzzles. 
 
-## To install the required dependencies, execute the following command - 
+### To install the required dependencies, execute the following command:
 
 ```bash
 pip install -r requirements.txt
@@ -61,13 +62,13 @@ python AnalyseCNNmodel.py
 
 genetic algorithm is a search heuristic method to solve the problem, self-discovery and make judgement quickly and efficiently. this algorithm is inspired by Darwinism, which is a biological evolution theory that all species arise through natural selection. A genetic algorithm generates a patch of generations with possible solutions for the research problem and selects the fittest individuals which are parents to reproduce the next child generation. Evaluate them to get the fittest children as the next parents to get the finalized best solution.
 
-## To install the required dependencies, execute the following command - 
+### To install the required dependencies, execute the following command:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Then simply run
+### Run the program by executing:
 
 ```bash
 python ShowResults.py
