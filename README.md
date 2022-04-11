@@ -20,7 +20,9 @@ To solve sudoku puzzles using seach algorithms, go to SudokuSearchAgent director
 
 ### To install the required dependencies, execute the following command 
 
-``` pip install -r requirements.txt```
+```bash
+pip install -r requirements.txt
+```
 
  ### Run the program
  
