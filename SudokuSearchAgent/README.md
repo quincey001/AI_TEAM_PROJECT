@@ -7,16 +7,17 @@ To solve sudoku puzzles using seach algorithms, go to SudokuSearchAgent director
 
 ## To install the required dependencies, execute the following command 
 
-``` pip install -r requirements.txt```
+```bash
+pip install -r requirements.txt
+```
+ ## Run the program
+ 
+replace **agent** with **dfs** to use DFS algorithm and with **bfs** to use BFS algorithm.
+replace puzzle with the name of the puzzles exist in samples folder.
 
 ```bash
 python main.py agent puzzle
 ```
-
- ## simply run
-
-replace **agent** with **dfs** to use DFS algorithm and with **bfs** to use BFS algorithm.
-replace puzzle with the name of the puzzles exist in samples folder.
 
 for example, the below command will run dfs agent for puzzle number 1:
 
