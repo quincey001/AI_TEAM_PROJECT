@@ -1,4 +1,5 @@
 from util import Queue
+from profile import profile
 class BFS:
     
     def __init__(self, startingTable):
@@ -8,7 +9,7 @@ class BFS:
         self.visitedNodes = []
         self.stepCount = 0
 
-
+    @profile
     def search(self):
 
         while True:
@@ -39,6 +40,7 @@ class BFS:
                 continue
 
 from util import Stack
+
 class DFS:
     
     def __init__(self, startingTable):
@@ -48,7 +50,7 @@ class DFS:
         self.visitedNodes = []
         self.stepCount = 0
 
-
+    @profile
     def search(self):
 
         while True:
