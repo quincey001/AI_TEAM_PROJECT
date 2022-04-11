@@ -43,7 +43,7 @@ class Sudoku():
 
         row, column = self.getNextEmptyCell()
         newTables = []
-        for number in range(1, 9+1):
+        for number in range(10):
             if self.inspectRow(row, number) and self.inspectColumn(column, number) and self.inspectSqaure(row, column, number):
                 newTable = deepcopy(self.table)
                 newTable[row][column] = number
